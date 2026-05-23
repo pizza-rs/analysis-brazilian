@@ -1,48 +1,66 @@
-# pizza-analysis-brazilian
+<div align="center">
 
-Brazilian Portuguese analysis with stemming and stop words.
+# 🇧🇷 pizza-analysis-brazilian
 
-Part of the [Pizza](https://pizza.rs) search engine.
+**Brazilian Portuguese analysis plugin for [INFINI Pizza](https://pizza.rs)**
+
+[![Crate](https://img.shields.io/badge/crate-pizza--analysis--brazilian-blue)](https://github.com/pizza-rs/analysis-brazilian)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+</div>
+
+---
+
+## Overview
+
+Brazilian Portuguese analysis with a dedicated stemmer tailored for Brazilian Portuguese
+morphology. Unlike the generic Portuguese stemmer, this handles Brazilian-specific verb
+conjugations and noun forms.
 
 ## Components
 
-| Name | Type | Description |
-|------|------|-------------|
-| `brazilian_stem` | Token Filter | Brazilian Portuguese stemmer |
-| `brazilian_stop` | Token Filter | Brazilian Portuguese stop words filter (203 words) |
-| `brazilian` | Analyzer | Full pipeline: lowercase → stop → stem |
+| Type | Name | Description |
+|:-----|:-----|:------------|
+| TokenFilter | `brazilian_stem` | Brazilian Portuguese stemmer |
+| TokenFilter | `brazilian_stop` | Brazilian Portuguese stop words (203 entries) |
+| Analyzer | `brazilian` | Full pipeline: lowercase → stem → stop |
 
-## Usage
+### Brazilian vs Portuguese Stemmer
 
-### Built-in Analyzer
+The Brazilian stemmer handles verb forms and suffixes specific to Brazilian Portuguese
+that differ from European Portuguese, providing better recall for BR content.
 
-```json
-{
-  "analyzer": {
-    "type": "brazilian"
-  }
-}
+## Example
+
+```rust
+use pizza_engine::analysis::AnalysisFactory;
+
+let mut factory = AnalysisFactory::new();
+pizza_analysis_brazilian::register_all(&mut factory);
+
+let analyzer = factory.get_analyzer("brazilian").unwrap();
 ```
 
-### Custom Pipeline
+## Installation
 
-```json
-{
-  "analyzer": {
-    "type": "custom",
-    "tokenizer": "standard",
-    "filter": ["brazilian_stem", "brazilian_stop"]
-  }
-}
+```toml
+[dependencies]
+pizza-analysis-brazilian = "0.1"
+```
+
+Or via `pizza-analysis-all`:
+
+```toml
+[dependencies]
+pizza-analysis-all = { version = "0.1", features = ["brazilian"] }
 ```
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT
 
-## Related Crates
+---
 
-- [analysis-core](https://github.com/pizza-rs/analysis-core) — Core analysis components and pipeline
-- [analysis-icu](https://github.com/pizza-rs/analysis-icu) — ICU Unicode normalization and tokenization
-- [analysis-english](https://github.com/pizza-rs/analysis-english) — English analysis
-- [analysis-all](https://github.com/pizza-rs/analysis-all) — Meta-crate registering all analyzers
+<div align="center">
+<sub>Part of the <a href="https://pizza.rs">INFINI Pizza</a> ecosystem</sub>
+</div>
