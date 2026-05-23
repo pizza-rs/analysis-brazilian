@@ -2,7 +2,7 @@
 name = "pizza-analysis-brazilian"
 version = "0.1.0"
 edition = "2021"
-description = "Brazilian Portuguese language analysis components for Pizza search engine"
+description = "Brazilian Portuguese text analysis plugin for INFINI Pizza"
 license = "MIT"
 
 [features]
