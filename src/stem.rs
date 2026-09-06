@@ -90,7 +90,10 @@ fn reduce_feminine(word: &str) -> String {
     if word.ends_with("ida") && word.len() > 5 {
         return format!("{}ido", &word[..word.len() - 3]);
     }
-    if word.ends_with('a') && word.len() > 3 && word.as_bytes()[word.len() - 2].is_ascii_alphabetic() {
+    if word.ends_with('a')
+        && word.len() > 3
+        && word.as_bytes()[word.len() - 2].is_ascii_alphabetic()
+    {
         return word[..word.len() - 1].to_string();
     }
     word.to_string()
@@ -116,10 +119,8 @@ fn reduce_augmentative(word: &str) -> String {
 
 fn reduce_noun_suffix(word: &str) -> String {
     let suffixes: &[&str] = &[
-        "amento", "imento", "adora", "ência", "ância",
-        "mente", "ador", "ição", "ação",
-        "eza", "oso", "osa", "ico", "ica",
-        "ivo", "iva",
+        "amento", "imento", "adora", "ência", "ância", "mente", "ador", "ição", "ação", "eza",
+        "oso", "osa", "ico", "ica", "ivo", "iva",
     ];
 
     for suffix in suffixes {
